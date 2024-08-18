@@ -1,0 +1,31 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+
+import Header from "../components/Header.astro";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Salvador Antonio Portfolio" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image" href="/favicon.png" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <Header />
+    <slot />
+  </body>
+</html>
+
+<style>
+  :root {
+    --header-height: 4rem; /* Adjust this to match your header's height */
+  }
+</style>

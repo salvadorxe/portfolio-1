@@ -1,0 +1,25 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+type Props = {
+  project: CollectionEntry<"projects">; // Changed to plural "projects"
+};
+
+const { project } = Astro.props;
+---
+
+<article>
+  <a href={`/projects/${project.slug}`}>
+    <img
+      src={project.data.image}
+      width={600}
+      height={600 / 1.5}
+      alt={project.data.title}
+      class="rounded-md mb-4 aspect-thumbnail object-cover"
+    />
+  </a>
+  <a href={`/projects/${project.slug}`}>
+    <h2 class="text-lg leading-normal mb-2">{project.data.title}</h2>
+    <p class="text-zinc-500 line-clamp-1 text-sm">{project.body}</p>
+  </a>
+</article>

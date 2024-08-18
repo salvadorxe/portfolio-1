@@ -1,0 +1,16 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import Main from "../components/Main.astro";
+import Splash from "../components/Splash.astro";
+import ProjectList from "../components/ProjectList.astro";
+
+const projects = await getCollection("projects");
+---
+
+<Layout title="Projects">
+  <Main>
+    <Splash text={`A selection of recent works.`} />
+    <ProjectList projects={projects} />
+  </Main>
+</Layout>
