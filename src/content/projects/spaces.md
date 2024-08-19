@@ -1,6 +1,6 @@
 ---
 title: Spaces
-image: /images/spaces.png
+image: ./images/spaces.png
 timeline: 3 weeks
 roles: 
   - Interaction Design
@@ -20,14 +20,25 @@ contextInquiry:
 storyboard:
   title: Storyboard
   description: The therapeutic benefits are depicted by Dr. Johnson's virtual method of treatment for traumatic events.
-  image: /images/spaces-story.png
+  image: ./images/spaces-story.png
 design:
   title: User flow and interface
   description: Existing applications served as inspiration for a user-interface that emphasizes selection and navigation features.
-  image: /images/spaces-userflow.png
+  image: ./images/spaces-userflow.png
   additionalImages:
-  - /images/sd-1.png
-  - /images/sd-2.png
+  - ./images/sd-1.png
+  - ./images/sd-2.png
+research:
+  title: Testing insights
+  description: Participant walkthroughs of an early prototype influenced changes to key frames and interaction flows.
+  steps:
+    - quote: "The scene is definitely aesthetically pleasing with relevant interactions available. Objects can provide more feedback to feel less static."
+      designChange: Enhance object feedback, physically or audibly, to match realistic physics. Provide secondary actions in-line with therapeutic goals.
+    - quote: "The novelty of the scene fades away quickly. How do you keep the user motivated to use and return to the application?"
+      designChange: Reward daily engagement with physical and functional expansions to map. Implement task completion and tracking for autosaving.
+    - quote: "The concept is personal and non-intrusive. The lack of interface clarity makes the user's goals vague. Subtle indicators would be useful."
+      designChange: Build and integrate the virtual UI to improve visibility of system status and clarity of application objective. Add tooltips and pop-ups for learnability.
+
 ---
 
 A meditative, low-commitment immersive VR experience.

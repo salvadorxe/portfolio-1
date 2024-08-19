@@ -4,6 +4,7 @@ import Main from "../../components/Main.astro";
 import Splash from "../../components/Splash.astro";
 import Layout from "../../layouts/Layout.astro";
 import ContextInquiry from "../../components/ContextInquiry.astro";
+import { Image } from "astro:assets";
 
 export const getStaticPaths = async () => {
   const projects = await getCollection("projects");
@@ -26,7 +27,7 @@ type Props = {
 
 const { project } = Astro.props;
 const { Content } = await project.render();
-const { contextInquiry, storyboard, design } = project.data;
+const { contextInquiry, storyboard, design, research } = project.data;
 ---
 
 <Layout title="Home">
@@ -80,7 +81,7 @@ const { contextInquiry, storyboard, design } = project.data;
     </section>
     <!-- project image-->
     <section class="w-full">
-      <img
+      <Image
         src={project.data.image}
         alt={project.data.title}
         class="w-full h-auto rounded-md mb-4 object-cover"
@@ -89,14 +90,14 @@ const { contextInquiry, storyboard, design } = project.data;
     </section>
     <!-- project-->
     <section class="mt-8 mb-16">
-      <!-- contextual inquiries -->
+      <!-- 1/5 contextual inquiries -->
       <ContextInquiry
         title={contextInquiry.title}
         description={contextInquiry.description}
         steps={contextInquiry.steps}
       />
-      <!-- storyboard -->
-      <div class="w-full bg-white px-8 py-8 rounded-2xl mt-16">
+      <!-- 2/5 storyboard -->
+      <div class="w-full bg-white px-8 py-8 rounded-2xl mt-16 max-sm:px-0">
         <h3 class="text-base text-fuchsia-700 leading-tight mb-4 font-semibold">
           2/5 {storyboard.title}
         </h3>
@@ -105,14 +106,14 @@ const { contextInquiry, storyboard, design } = project.data;
         >
           {storyboard.description}
         </h4>
-        <img
+        <Image
           src={storyboard.image}
           alt={storyboard.title}
-          class="w-full h-auto rounded-md mb-4 object-cover px-12"
+          class="w-full h-auto rounded-md mb-4 object-cover px-12 max-sm:px-0"
         />
       </div>
-      <!-- design -->
-      <div class="w-full bg-white px-8 py-8 rounded-2xl mt-16">
+      <!-- 3/5 design -->
+      <div class="w-full bg-white px-8 py-8 rounded-2xl mt-16 max-sm:px-0">
         <h3 class="text-base text-fuchsia-700 leading-tight mb-4 font-semibold">
           3/5 {design.title}
         </h3>
@@ -121,24 +122,71 @@ const { contextInquiry, storyboard, design } = project.data;
         >
           {design.description}
         </h4>
-        <img
-          src={design.image}
-          alt={design.title}
-          class="w-full h-auto rounded-md mb-4 object-cover px-2"
-        />
+        <div class="w-full">
+          <Image
+            src={design.image}
+            alt={design.title}
+            class="w-full h-auto rounded-md mb-4 object-cover max-sm:px-0"
+          />
+        </div>
         {
           project.slug === "spaces" && design.additionalImages && (
-            <div class="grid grid-cols-2 max-md:grid-cols-1 mb-24">
-              {design.additionalImages.map((imagePath, index) => (
-                <img
-                  src={imagePath}
-                  alt={`Additional Image ${index + 1}`}
-                  class="w-full h-auto rounded-md mb-4 object-cover"
-                />
-              ))}
+            <div class="additional-images-container mt-8 -mx-8 px-8 md:-mx-16 md:px-16 lg:-mx-32 lg:px-32">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {design.additionalImages.map((imagePath, index) => (
+                  <div class="w-full">
+                    <Image
+                      src={imagePath}
+                      alt={`Additional Image ${index + 1}`}
+                      class="w-full h-auto rounded-md object-cover max-sm:px-0"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           )
         }
+      </div>
+      <!-- 4/5 user research -->
+      <div class="w-full bg-gray-100 px-8 py-8 rounded-2xl">
+        <h3 class="text-base text-zinc-400 leading-tight mb-4 font-semibold">
+          4/5 {research.title}
+        </h3>
+        <h4
+          class="text-xl text-black leading-tight mb-16 font-semibold w-1/2 max-sm:w-full max-sm:text-lg max-sm:leading-tight"
+        >
+          {research.description}
+        </h4>
+
+        <!-- user quotes + analysis -->
+        <div class="flex flex-col sm:flex-row gap-4">
+          {
+            research.steps.slice(0, 3).map((step, index) => (
+              <div class="flex flex-col items-start w-full sm:w-1/3 mb-2 sm:mb-0">
+                {step.images && (
+                  <div class="flex justify-center w-full">
+                    <Image
+                      src={step.images[0]}
+                      alt={`User ${index + 1} image`}
+                      class="w-[175px] h-[150px] rounded-lg object-cover mb-4"
+                    />
+                  </div>
+                )}
+                <div class="flex flex-col items-start bg-white border rounded-xl p-4 pb-8 overflow-auto">
+                  <span class="text-zinc-400 text-xl leading-tight break-words font-semibold">
+                    "{step.quote}"
+                  </span>
+                  <div class="mt-8 flex flex-col">
+                    <span class="text-sm font-semibold">Design Change</span>
+                    <span class="text-gray-600 text-sm leading-tight break-words">
+                      {step.designChange}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
       </div>
     </section>
   </Main>

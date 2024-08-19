@@ -1,8 +1,8 @@
 import {defineCollection, z} from "astro:content";
 
 const projectCollection = defineCollection({
-    schema: z.object({
-        image: z.string(),
+    schema: ({image}) => z.object({
+        image: image(),
         title: z.string(),
         timeline: z.string(),
         pitch: z.string(),
@@ -16,14 +16,25 @@ const projectCollection = defineCollection({
         storyboard: z.object({
             title: z.string(),
             description: z.string(),
-            image: z.string()
+            image: image()
         }),
         design: z.object({
             title: z.string(),
             description: z.string(),
-            image: z.string(),
-            additionalImages: z.array(z.string()).optional()
-        })
+            image: image(),
+            additionalImages: z.array(image()).optional()
+        }),
+        research: z.object({
+            title: z.string(),
+            description: z.string(),
+            steps: z.array(
+                z.object({
+                  quote: z.string(),
+                  designChange: z.string(),
+                  images: z.array(image()).optional()
+                })
+              )
+        }),
     })
 })
 
