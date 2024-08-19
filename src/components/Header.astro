@@ -1,5 +1,5 @@
 ---
-
+const currentPath = Astro.url.pathname;
 ---
 
 <header
@@ -10,24 +10,45 @@
       <li>
         <a
           href="/"
-          class="font-regular px-16 py-3 rounded-full border border-black border-opacity-15 hover:bg-black hover:bg-opacity-5 transition-colors"
-          >Home</a
+          class:list={[
+            "nav-link font-regular px-16 py-4 rounded-full border border-black border-opacity-15 hover:bg-black hover:bg-opacity-5 transition-colors",
+            { active: currentPath === "/" },
+          ]}
         >
+          Home
+        </a>
       </li>
       <li>
         <a
           href="/projects"
-          class="font-regular px-16 py-3 rounded-full border border-black border-opacity-15 hover:bg-black hover:bg-opacity-5 transition-colors"
-          >Projects</a
+          class:list={[
+            "nav-link font-regular px-16 py-4 rounded-full border border-black border-opacity-15 hover:bg-black hover:bg-opacity-5 transition-colors",
+            { active: currentPath === "/projects" },
+          ]}
         >
+          Projects
+        </a>
       </li>
       <li>
         <a
           href="/about"
-          class="font-regular px-16 py-3 rounded-full border border-black border-opacity-15 hover:bg-black hover:bg-opacity-5 transition-colors"
-          >About</a
+          class:list={[
+            "nav-link font-regular px-16 py-4 rounded-full border border-black border-opacity-15 hover:bg-black hover:bg-opacity-5 transition-colors",
+            { active: currentPath === "/about" },
+          ]}
         >
+          About
+        </a>
       </li>
     </ul>
   </nav>
 </header>
+
+<style>
+  .nav-link:hover {
+    @apply bg-black bg-opacity-5;
+  }
+  .nav-link.active {
+    @apply bg-black text-white;
+  }
+</style>

@@ -26,7 +26,7 @@ type Props = {
 
 const { project } = Astro.props;
 const { Content } = await project.render();
-const { contextInquiry, storyboard } = project.data;
+const { contextInquiry, storyboard, design } = project.data;
 ---
 
 <Layout title="Home">
@@ -110,6 +110,35 @@ const { contextInquiry, storyboard } = project.data;
           alt={storyboard.title}
           class="w-full h-auto rounded-md mb-4 object-cover px-12"
         />
+      </div>
+      <!-- design -->
+      <div class="w-full bg-white px-8 py-8 rounded-2xl mt-16">
+        <h3 class="text-base text-fuchsia-700 leading-tight mb-4 font-semibold">
+          3/5 {design.title}
+        </h3>
+        <h4
+          class="text-xl text-black leading-tight mb-8 font-semibold w-1/2 max-sm:w-full max-sm:text-lg max-sm:leading-tight"
+        >
+          {design.description}
+        </h4>
+        <img
+          src={design.image}
+          alt={design.title}
+          class="w-full h-auto rounded-md mb-4 object-cover px-2"
+        />
+        {
+          project.slug === "spaces" && design.additionalImages && (
+            <div class="grid grid-cols-2 max-md:grid-cols-1 mb-24">
+              {design.additionalImages.map((imagePath, index) => (
+                <img
+                  src={imagePath}
+                  alt={`Additional Image ${index + 1}`}
+                  class="w-full h-auto rounded-md mb-4 object-cover"
+                />
+              ))}
+            </div>
+          )
+        }
       </div>
     </section>
   </Main>

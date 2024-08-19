@@ -20,6 +20,10 @@ storyboard:
   title: Storyboard
   description: We illustrate situational context, where the benefits of clear contact organization become apparent.
   image: /images/final-story.jpg
+design:
+  title: Interface Design
+  description: Three rounds of iteration resulted in customizable communities that emphasize visual indicators and ease of access.
+  image: /images/iteration.png
 ---
 
 Organization of personal and professional relationships.

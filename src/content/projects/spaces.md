@@ -21,6 +21,13 @@ storyboard:
   title: Storyboard
   description: The therapeutic benefits are depicted by Dr. Johnson's virtual method of treatment for traumatic events.
   image: /images/spaces-story.png
+design:
+  title: User flow and interface
+  description: Existing applications served as inspiration for a user-interface that emphasizes selection and navigation features.
+  image: /images/spaces-userflow.png
+  additionalImages:
+  - /images/sd-1.png
+  - /images/sd-2.png
 ---
 
 A meditative, low-commitment immersive VR experience.

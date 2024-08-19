@@ -17,6 +17,12 @@ const projectCollection = defineCollection({
             title: z.string(),
             description: z.string(),
             image: z.string()
+        }),
+        design: z.object({
+            title: z.string(),
+            description: z.string(),
+            image: z.string(),
+            additionalImages: z.array(z.string()).optional()
         })
     })
 })
