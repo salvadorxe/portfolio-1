@@ -1,0 +1,35 @@
+---
+// ContextInquiry.astro
+export interface Props {
+  title: string;
+  description: string;
+  steps: string[];
+}
+
+const { title, description, steps } = Astro.props;
+---
+
+<div class="w-full bg-gray-100 px-8 py-8 rounded-2xl">
+  <h3 class="text-base text-zinc-400 leading-tight mb-4 font-semibold">
+    1/5 {title}
+  </h3>
+  <h4
+    class="text-xl text-black leading-tight mb-16 font-semibold w-1/2 max-sm:w-full max-sm:text-lg max-sm:leading-tight"
+  >
+    {description}
+  </h4>
+
+  <!-- context steps -->
+  <div class="flex flex-col sm:flex-row gap-4">
+    {
+      steps.slice(0, 3).map((step, index) => (
+        <div class="flex flex-col items-start bg-white border rounded-xl p-4 pb-8 w-full sm:w-1/3 mb-4 sm:mb-0 overflow-auto">
+          <span class="text-xl text-black font-semibold mb-2">{index + 1}</span>
+          <span class="text-gray-600 text-base leading-tight break-words">
+            {step}
+          </span>
+        </div>
+      ))
+    }
+  </div>
+</div>

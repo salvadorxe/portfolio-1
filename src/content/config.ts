@@ -7,7 +7,17 @@ const projectCollection = defineCollection({
         timeline: z.string(),
         pitch: z.string(),
         roles: z.array(z.string()),
-        tools: z.array(z.string())
+        tools: z.array(z.string()),
+        contextInquiry: z.object({
+            title: z.string(),
+            description: z.string(),
+            steps: z.array(z.string())
+        }),
+        storyboard: z.object({
+            title: z.string(),
+            description: z.string(),
+            image: z.string()
+        })
     })
 })
 

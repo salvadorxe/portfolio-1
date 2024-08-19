@@ -3,6 +3,7 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import Main from "../../components/Main.astro";
 import Splash from "../../components/Splash.astro";
 import Layout from "../../layouts/Layout.astro";
+import ContextInquiry from "../../components/ContextInquiry.astro";
 
 export const getStaticPaths = async () => {
   const projects = await getCollection("projects");
@@ -25,19 +26,24 @@ type Props = {
 
 const { project } = Astro.props;
 const { Content } = await project.render();
+const { contextInquiry, storyboard } = project.data;
 ---
 
 <Layout title="Home">
   <Main>
     <section
-      class="h-[calc(100vh-var(--header-height))] flex flex-col justify-end pb-12 overflow-hidden"
+      class="h-[calc(100vh-var(--header-height))] flex flex-col justify-end pb-8 overflow-hidden"
     >
       <!-- title and pitch hstack-->
-      <div class="flex flex-wrap items-center justify-between gap-y-2">
-        <h1 class="text-4xl text-black leading-tight mb-4">
+      <div
+        class="flex flex-wrap items-center mb-4 justify-between gap-y-2 max-sm:mb-8 max-sm:flex-col max-sm:items-start"
+      >
+        <h1 class="text-4xl text-black leading-tight">
           {project.data.title}
         </h1>
-        <span class="ml-auto text-gray-600"> {project.data.pitch} </span>
+        <span class="ml-auto text-gray-600 max-sm:ml-0">
+          {project.data.pitch}
+        </span>
       </div>
       <!-- project details format-->
       <div class="flex flex-col gap-y-2">
@@ -50,7 +56,9 @@ const { Content } = await project.render();
             <span class="text-gray-800">Roles </span>
             {
               project.data.roles.map((role) => (
-                <span class="bg-gray-100 px-2 py-1 rounded-md">{role}</span>
+                <span class="bg-gray-100 px-2 py-1 rounded-md max-sm:flex-col">
+                  {role}
+                </span>
               ))
             }
           </span>
@@ -60,14 +68,49 @@ const { Content } = await project.render();
             <span class="text-gray-800">Tools </span>
             {
               project.data.tools.map((tool) => (
-                <span class="bg-gray-100 px-2 py-1 rounded-md">{tool}</span>
+                <span class="bg-gray-100 px-2 py-1 rounded-md max-sm:flex-col">
+                  {tool}
+                </span>
               ))
             }
           </span>
         </span>
       </div>
-      <div class="w-full h-px bg-black bg-opacity-25 mt-8"></div>
-      <!-- project image-->
+      <div class="w-full h-px bg-black bg-opacity-10 mt-8"></div>
+    </section>
+    <!-- project image-->
+    <section class="w-full">
+      <img
+        src={project.data.image}
+        alt={project.data.title}
+        class="w-full h-auto rounded-md mb-4 object-cover"
+      />
+      <div class="w-full h-px bg-black bg-opacity-10 mt-8"></div>
+    </section>
+    <!-- project-->
+    <section class="mt-8 mb-16">
+      <!-- contextual inquiries -->
+      <ContextInquiry
+        title={contextInquiry.title}
+        description={contextInquiry.description}
+        steps={contextInquiry.steps}
+      />
+      <!-- storyboard -->
+      <div class="w-full bg-white px-8 py-8 rounded-2xl mt-16">
+        <h3 class="text-base text-fuchsia-700 leading-tight mb-4 font-semibold">
+          2/5 {storyboard.title}
+        </h3>
+        <h4
+          class="text-xl text-black leading-tight mb-16 font-semibold w-1/2 max-sm:w-full max-sm:text-lg max-sm:leading-tight"
+        >
+          {storyboard.description}
+        </h4>
+        <img
+          src={storyboard.image}
+          alt={storyboard.title}
+          class="w-full h-auto rounded-md mb-4 object-cover px-12"
+        />
+      </div>
     </section>
   </Main>
 </Layout>
