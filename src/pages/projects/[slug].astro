@@ -173,10 +173,12 @@ const { contextInquiry, storyboard, design, research, showcase, conclusion } =
                     />
                   </div>
                 )}
-                <div class="flex flex-col items-start bg-white border rounded-xl p-4 pb-8 overflow-auto">
-                  <span class="text-zinc-400 text-xl leading-tight break-words font-semibold">
-                    "{step.quote}"
-                  </span>
+                <div class="flex flex-col items-start bg-white border rounded-xl p-4 pb-8 overflow-auto flex-grow">
+                  <div class="flex-grow flex items-start">
+                    <span class="text-zinc-400 text-xl leading-tight break-words font-semibold">
+                      "{step.quote}"
+                    </span>
+                  </div>
                   <div class="mt-8 flex flex-col">
                     <span class="text-sm font-semibold mb-1">
                       Design Change
