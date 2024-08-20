@@ -4,6 +4,8 @@ import Layout from "../layouts/Layout.astro";
 import Main from "../components/Main.astro";
 import Splash from "../components/Splash.astro";
 import ProjectList from "../components/ProjectList.astro";
+import Divider from "../components/Divider.astro";
+import ContactFooter from "../components/ContactFooter.astro";
 
 const projects = await getCollection("projects");
 ---
@@ -12,5 +14,7 @@ const projects = await getCollection("projects");
   <Main>
     <Splash text={`A selection of recent works.`} />
     <ProjectList projects={projects} />
+    <Divider />
+    <ContactFooter />
   </Main>
 </Layout>

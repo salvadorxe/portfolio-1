@@ -5,19 +5,26 @@ import Card from "../components/Card.astro";
 import Main from "../components/Main.astro";
 import Splash from "../components/Splash.astro";
 import ProjectList from "../components/ProjectList.astro";
+import Divider from "../components/Divider.astro";
+import ContactFooter from "../components/ContactFooter.astro";
 
 const projects = await getCollection("projects");
 ---
 
 <Layout title="Home">
   <Main>
+    <!-- header -->
     <Splash
       text={`A product designer based in New York City, NY. I create digital experiences
         that simplify and strengthen human interaction. I believe good design
         changes the world.`}
     />
-    <!-- <h2 class="text-2xl mb-4 text-zinc-700 leading-tight">Recent Work</h2> -->
+    <!-- featured works -->
+    <h2 class="text-lg text-black leading-normal">Featured Work</h2>
     <ProjectList projects={projects} />
+    <!-- contact me -->
+    <Divider />
+    <ContactFooter />
   </Main>
 </Layout>
 
