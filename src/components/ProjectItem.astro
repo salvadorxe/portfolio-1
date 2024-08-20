@@ -13,8 +13,6 @@ const { project } = Astro.props;
   <a href={`/projects/${project.slug}`}>
     <Image
       src={project.data.image}
-      width={600}
-      height={600 / 1.5}
       alt={project.data.title}
       class="rounded-md mb-4 aspect-thumbnail object-cover"
     />

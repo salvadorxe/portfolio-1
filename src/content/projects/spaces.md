@@ -38,7 +38,32 @@ research:
       designChange: Reward daily engagement with physical and functional expansions to map. Implement task completion and tracking for autosaving.
     - quote: "The concept is personal and non-intrusive. The lack of interface clarity makes the user's goals vague. Subtle indicators would be useful."
       designChange: Build and integrate the virtual UI to improve visibility of system status and clarity of application objective. Add tooltips and pop-ups for learnability.
-
+showcase:
+  - title: Navigation
+    description: Use the joystick to traverse the scene or teleport to a location anchor when in range.
+    gifs:
+      - ./images/nav-1.gif
+      - ./images/nav-2.jpeg
+  - title: Manipulation
+    description: Matching physical properties and real-world affordances within our virtual scene.
+    gifs:
+      - ./images/sel-2.jpeg
+      - ./images/sel-1.gif
+  - title: Selection
+    description: Ray casting to interact with 2D UI across the 3D environment.
+    gifs:
+      - ./images/man-1.gif
+      - ./images/man-2.jpeg
+conclusion:
+  title: Conclusion
+  description: Key takeaways from my experience of translating the freedom of physical interactions into a virtual environment. 
+  steps:
+    - subheading: Test smaller and more often.
+      text: Designing in a new dimension demands careful attention to user flow. In our project, ensuring natural and learnable interactions is crucial. Smaller tests validate the design before expanding the application.
+    - subheading: UX Design for Virtual Reality.
+      text: Testing and iterating different versions of our application has deepened my understanding of effective design strategies, essential for creating immersive virtual experiences that engage users' senses.
+    - subheading: Logical constraints.
+      text: Balancing virtual and real-world interactions is challenging due to technical constraints. Unrealistic behaviors can break immersion. Efficient error prevention through guided user actions reduces revisions and speeds up development.
 ---
 
 A meditative, low-commitment immersive VR experience.

@@ -35,6 +35,23 @@ const projectCollection = defineCollection({
                 })
               )
         }),
+        showcase: z.array(
+            z.object({
+                title: z.string(),
+                description: z.string(),
+                gifs: z.array(image()),  // Allows multiple gifs per showcase
+            })
+        ).optional(),
+        conclusion: z.object({
+            title: z.string(),
+            description: z.string(),
+            steps: z.array(
+              z.object({
+                subheading: z.string(),
+                text: z.string()
+              })
+            )
+          }),
     })
 })
 

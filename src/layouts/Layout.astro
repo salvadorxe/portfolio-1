@@ -6,6 +6,7 @@ interface Props {
 const { title } = Astro.props;
 
 import Header from "../components/Header.astro";
+import { ViewTransitions } from "astro:transitions";
 ---
 
 <!doctype html>
@@ -16,6 +17,7 @@ import Header from "../components/Header.astro";
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image" href="/favicon.png" />
     <meta name="generator" content={Astro.generator} />
+    <ViewTransitions />
     <title>{title}</title>
   </head>
   <body>
