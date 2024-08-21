@@ -2,7 +2,7 @@
 title: Spaces
 image: ./images/spaces.png
 timeline: 3 weeks
-roles: 
+roles:
   - Interaction Design
   - Developer
   - UI/UX
@@ -26,8 +26,8 @@ design:
   description: Existing applications served as inspiration for a user-interface that emphasizes selection and navigation features.
   image: ./images/spaces-userflow.png
   additionalImages:
-  - ./images/sd-1.png
-  - ./images/sd-2.png
+    - ./images/sd-1.png
+    - ./images/sd-2.png
 research:
   title: Testing insights
   description: Participant walkthroughs of an early prototype influenced changes to key frames and interaction flows.
@@ -37,7 +37,7 @@ research:
     - quote: "The novelty of the scene fades away quickly. How do you keep the user motivated to use and return to the application?"
       designChange: Reward daily engagement with physical and functional expansions to map. Implement task completion and tracking for autosaving.
     - quote: "The concept is personal and non-intrusive. The lack of interface clarity makes the user's goals vague. Subtle indicators would be useful."
-      designChange: Build and integrate the virtual UI to improve visibility of system status and clarity of application objective. Add tooltips and pop-ups for learnability.
+      designChange: Integrate the UI to improve visibility of system status and clarity of application objective. Add tooltips and pop-ups for learnability.
 showcase:
   - title: Navigation
     description: Use the joystick to traverse the scene or teleport to a location anchor when in range.
@@ -56,10 +56,10 @@ showcase:
       - ./images/man-2.jpeg
 conclusion:
   title: Conclusion
-  description: Key takeaways from my experience of translating the freedom of physical interactions into a virtual environment. 
+  description: Key takeaways from my experience of translating the freedom of physical interactions into a virtual environment.
   steps:
     - subheading: Test smaller and more often.
-      text: Designing in a new dimension demands careful attention to user flow. In our project, ensuring natural and learnable interactions is crucial. Smaller tests validate the design before expanding the application.
+      text: Designing in a new dimension demands careful attention to user flow. In our project, ensuring natural and learnable interactions was crucial. Smaller tests validate the design before expanding the application.
     - subheading: UX Design for Virtual Reality.
       text: Testing and iterating different versions of our application has deepened my understanding of effective design strategies, essential for creating immersive virtual experiences that engage users' senses.
     - subheading: Logical constraints.
