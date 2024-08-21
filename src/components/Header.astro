@@ -2,6 +2,52 @@
 const currentPath = Astro.url.pathname;
 import { Image } from "astro:assets";
 import logo from "../content/projects/images/logo.png";
+let isMenuOpen = false;
+
+function initMenu() {
+  const menuButton = document.getElementById("menu-button");
+  const closeButton = document.getElementById("close-menu");
+  const slideMenu = document.getElementById("slide-menu");
+
+  if (!menuButton || !closeButton || !slideMenu) {
+    console.error("One or more required elements are missing.");
+    return;
+  }
+
+  function openMenu() {
+    if (slideMenu) {
+      slideMenu.classList.remove("translate-x-full");
+      isMenuOpen = true;
+    }
+  }
+
+  function closeMenu() {
+    if (slideMenu) {
+      slideMenu.classList.add("translate-x-full");
+      isMenuOpen = false;
+    }
+  }
+
+  menuButton.addEventListener("click", openMenu);
+  closeButton.addEventListener("click", closeMenu);
+
+  // Close menu when clicking a link
+  const menuLinks = slideMenu.querySelectorAll("a");
+  menuLinks.forEach((link) => {
+    link.addEventListener("click", closeMenu);
+  });
+
+  // Check menu state on page load
+  if (isMenuOpen) {
+    openMenu();
+  } else {
+    closeMenu();
+  }
+}
+
+// Initialize menu on page load and after each navigation
+document.addEventListener("DOMContentLoaded", initMenu);
+document.addEventListener("astro:after-swap", initMenu);
 ---
 
 <header
@@ -108,52 +154,3 @@ import logo from "../content/projects/images/logo.png";
     @apply bg-black text-white;
   }
 </style>
-
-<script>
-  let isMenuOpen = false;
-
-  function initMenu() {
-    const menuButton = document.getElementById("menu-button");
-    const closeButton = document.getElementById("close-menu");
-    const slideMenu = document.getElementById("slide-menu");
-
-    if (!menuButton || !closeButton || !slideMenu) {
-      console.error("One or more required elements are missing.");
-      return;
-    }
-
-    function openMenu() {
-      if (slideMenu) {
-        slideMenu.classList.remove("translate-x-full");
-        isMenuOpen = true;
-      }
-    }
-
-    function closeMenu() {
-      if (slideMenu) {
-        slideMenu.classList.add("translate-x-full");
-        isMenuOpen = false;
-      }
-    }
-
-    menuButton.addEventListener("click", openMenu);
-    closeButton.addEventListener("click", closeMenu);
-
-    // Close menu when clicking a link
-    const menuLinks = slideMenu.querySelectorAll("a");
-    menuLinks.forEach((link) => {
-      link.addEventListener("click", closeMenu);
-    });
-
-    // Check menu state on page load
-    if (isMenuOpen) {
-      openMenu();
-    } else {
-      closeMenu();
-    }
-  }
-
-  // Initialize menu on page load and after each navigation
-  document.addEventListener("DOMContentLoaded", initMenu);
-  document.addEventListener("astro:after-swap", initMenu);
-</script>
