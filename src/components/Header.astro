@@ -3,14 +3,19 @@ const currentPath = Astro.url.pathname;
 import { Image } from "astro:assets";
 import logo from "../content/projects/images/logo.png";
 
-const basePath = "/portfolio-1";
+const basePath = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL.slice(0, -1)
+  : import.meta.env.BASE_URL;
+function createLink(path: string) {
+  return `${basePath}${path}`;
+}
 ---
 
 <header
   class="h-16 flex justify-between items-center px-16 py-12 max-md:px-5 max-md:py-10 max-w-7xl w-full mx-auto"
 >
   <!-- Logo for small screens -->
-  <a href="`${basePath}/`" class="block md:hidden">
+  <a href="/" class="block md:hidden">
     <Image src={logo} alt="Logo" class="w-8 h-8" />
   </a>
 
@@ -19,7 +24,7 @@ const basePath = "/portfolio-1";
     <ul class="hidden md:flex gap-x-4">
       <li>
         <a
-          href="`${basePath}/`"
+          href="/"
           class:list={[
             "nav-link font-regular px-8 py-4 rounded-full border border-black border-opacity-15 hover:bg-black hover:bg-opacity-5 transition-colors",
             { active: currentPath === "/" },
@@ -30,7 +35,7 @@ const basePath = "/portfolio-1";
       </li>
       <li>
         <a
-          href="`${basePath}/projects`"
+          href="/projects"
           class:list={[
             "nav-link font-regular px-8 py-4 rounded-full border border-black border-opacity-15 hover:bg-black hover:bg-opacity-5 transition-colors",
             { active: currentPath === "/projects" },
@@ -41,7 +46,7 @@ const basePath = "/portfolio-1";
       </li>
       <li>
         <a
-          href="`${basePath}/about`"
+          href="/about"
           class:list={[
             "nav-link font-regular px-8 py-4 rounded-full border border-black border-opacity-15 hover:bg-black hover:bg-opacity-5 transition-colors",
             { active: currentPath === "/about" },
@@ -94,16 +99,13 @@ const basePath = "/portfolio-1";
     </button>
     <ul class="mt-8 space-y-4">
       <li>
-        <a href="`${basePath}/`" class="block py-2 hover:bg-gray-100">Home</a>
+        <a href="/" class="block py-2 hover:bg-gray-100">Home</a>
       </li>
       <li>
-        <a href="`${basePath}/projects`" class="block py-2 hover:bg-gray-100"
-          >Projects</a
-        >
+        <a href="/projects" class="block py-2 hover:bg-gray-100">Projects</a>
       </li>
       <li>
-        <a href="`${basePath}/about`" class="block py-2 hover:bg-gray-100"
-          >About</a>
+        <a href="/about" class="block py-2 hover:bg-gray-100">About</a>
       </li>
     </ul>
   </div>
