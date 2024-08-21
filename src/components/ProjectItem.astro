@@ -26,7 +26,9 @@ const { project } = Astro.props;
   <a href={`/projects/${project.slug}`}>
     <div class="flex flex-col justify-start flex-shrink-0">
       <h2 class="text-black leading-normal">{project.data.title}</h2>
-      <p class="text-zinc-400 line-clamp-1 text-base">{project.body}</p>
+      <p class="text-zinc-400 line-clamp-1 text-base max-md:text-sm">
+        {project.body}
+      </p>
     </div>
   </a>
 </article>

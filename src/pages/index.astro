@@ -20,7 +20,9 @@ const projects = await getCollection("projects");
         changes the world.`}
     />
     <!-- featured works -->
-    <h2 class="text-lg text-black leading-normal">Featured Work</h2>
+    <h2 class="text-lg text-black leading-normal max-sm:text-base">
+      Featured Work
+    </h2>
     <ProjectList projects={projects} />
     <!-- contact me -->
     <Divider />

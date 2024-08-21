@@ -18,9 +18,11 @@ import { Image } from "astro:assets";
     <Experience />
     <Divider />
 
-    <div class="grid grid-cols-2 gap-4 mt-4 mb-12">
-      <h2 class="text-lg text-black leading-normal">Services</h2>
-      <div class="grid grid-cols-2 gap-2 items-start">
+    <div class="grid grid-cols-2 gap-4 mt-4 mb-12 max-md:flex max-md:flex-wrap">
+      <h2 class="text-lg text-black leading-normal max-md:text-base">
+        Services
+      </h2>
+      <div class="grid grid-cols-2 gap-2 items-start max-md:text-sm">
         <!-- contact links -->
         <div class="grid grid-cols-1">
           <Image

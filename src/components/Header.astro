@@ -1,12 +1,20 @@
 ---
 const currentPath = Astro.url.pathname;
+import logo from "./src/content/projects/images/logo.png";
+import { Image } from "astro:assets";
 ---
 
 <header
-  class="h-16 flex justify-end items-center px-24 py-12 max-sm:px-5 max-sm:py-10 max-w-7xl w-full mx-auto"
+  class="h-16 flex justify-between items-center px-16 py-12 max-md:px-5 max-md:py-10 max-w-7xl w-full mx-auto"
 >
-  <nav>
-    <ul class="flex gap-x-4">
+  <!-- Logo for small screens -->
+  <a href="/" class="block md:hidden">
+    <Image src={logo} alt="Logo" class="w-8 h-8" />
+  </a>
+
+  <!-- Navigation for large screens -->
+  <nav class="flex items-center justify-end flex-grow w-full md:w-auto">
+    <ul class="hidden md:flex gap-x-4">
       <li>
         <a
           href="/"
@@ -42,7 +50,63 @@ const currentPath = Astro.url.pathname;
       </li>
     </ul>
   </nav>
+
+  <!-- Burger Menu for small screens -->
+  <button class="inline-block md:hidden" id="menu-button">
+    <svg
+      class="w-6 h-6"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M4 6H20M4 12H20M4 18H20"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"></path>
+    </svg>
+  </button>
 </header>
+
+<!-- Slide-out Menu -->
+<div
+  id="slide-menu"
+  class="fixed top-0 right-0 w-64 h-full bg-white shadow transform translate-x-full transition-transform duration-320 ease-in-out z-50"
+>
+  <div class="p-6">
+    <button id="close-menu" class="absolute top-6 right-4">
+      <svg
+        class="w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+    <ul class="mt-8 space-y-4">
+      <li>
+        <a href="/" class="block py-1 hover:bg-black hover:text-white">Home</a>
+      </li>
+      <li>
+        <a href="/projects" class="block py-1 hover:bg-black hover:text-white"
+          >Projects</a
+        >
+      </li>
+      <li>
+        <a href="/about" class="block py-1 hover:bg-black hover:text-white"
+          >About</a
+        >
+      </li>
+    </ul>
+  </div>
+</div>
 
 <style>
   .nav-link:hover {
@@ -52,3 +116,52 @@ const currentPath = Astro.url.pathname;
     @apply bg-black text-white;
   }
 </style>
+
+<script>
+  let isMenuOpen = false;
+
+  function initMenu() {
+    const menuButton = document.getElementById("menu-button");
+    const closeButton = document.getElementById("close-menu");
+    const slideMenu = document.getElementById("slide-menu");
+
+    if (!menuButton || !closeButton || !slideMenu) {
+      console.error("One or more required elements are missing.");
+      return;
+    }
+
+    function openMenu() {
+      if (slideMenu) {
+        slideMenu.classList.remove("translate-x-full");
+        isMenuOpen = true;
+      }
+    }
+
+    function closeMenu() {
+      if (slideMenu) {
+        slideMenu.classList.add("translate-x-full");
+        isMenuOpen = false;
+      }
+    }
+
+    menuButton.addEventListener("click", openMenu);
+    closeButton.addEventListener("click", closeMenu);
+
+    // Close menu when clicking a link
+    const menuLinks = slideMenu.querySelectorAll("a");
+    menuLinks.forEach((link) => {
+      link.addEventListener("click", closeMenu);
+    });
+
+    // Check menu state on page load
+    if (isMenuOpen) {
+      openMenu();
+    } else {
+      closeMenu();
+    }
+  }
+
+  // Initialize menu on page load and after each navigation
+  document.addEventListener("DOMContentLoaded", initMenu);
+  document.addEventListener("astro:after-swap", initMenu);
+</script>
