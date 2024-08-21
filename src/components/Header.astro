@@ -3,11 +3,15 @@ const currentPath = Astro.url.pathname;
 import { Image } from "astro:assets";
 import logo from "../content/projects/images/logo.png";
 
-const basePath = import.meta.env.BASE_URL.endsWith("/")
-  ? import.meta.env.BASE_URL.slice(0, -1)
-  : import.meta.env.BASE_URL;
+const basePath = "/portfolio-1";
 function createLink(path: string) {
   return `${basePath}${path}`;
+}
+function isActive(path: string) {
+  if (path === "/") {
+    return currentPath === basePath || currentPath === `${basePath}/`;
+  }
+  return currentPath.startsWith(`${basePath}${path}`);
 }
 ---
 
@@ -15,7 +19,7 @@ function createLink(path: string) {
   class="h-16 flex justify-between items-center px-16 py-12 max-md:px-5 max-md:py-10 max-w-7xl w-full mx-auto"
 >
   <!-- Logo for small screens -->
-  <a href="/" class="block md:hidden">
+  <a href={createLink("/")} class="block md:hidden">
     <Image src={logo} alt="Logo" class="w-8 h-8" />
   </a>
 
@@ -24,10 +28,10 @@ function createLink(path: string) {
     <ul class="hidden md:flex gap-x-4">
       <li>
         <a
-          href="/"
+          href={createLink("/")}
           class:list={[
             "nav-link font-regular px-8 py-4 rounded-full border border-black border-opacity-15 hover:bg-black hover:bg-opacity-5 transition-colors",
-            { active: currentPath === "/" },
+            { active: isActive("/") },
           ]}
         >
           Home
@@ -35,10 +39,10 @@ function createLink(path: string) {
       </li>
       <li>
         <a
-          href="/projects"
+          href={createLink("/projects")}
           class:list={[
             "nav-link font-regular px-8 py-4 rounded-full border border-black border-opacity-15 hover:bg-black hover:bg-opacity-5 transition-colors",
-            { active: currentPath === "/projects" },
+            { active: isActive("/projects") },
           ]}
         >
           Projects
@@ -46,10 +50,10 @@ function createLink(path: string) {
       </li>
       <li>
         <a
-          href="/about"
+          href={createLink("/about")}
           class:list={[
             "nav-link font-regular px-8 py-4 rounded-full border border-black border-opacity-15 hover:bg-black hover:bg-opacity-5 transition-colors",
-            { active: currentPath === "/about" },
+            { active: isActive("/about") },
           ]}
         >
           About
@@ -99,13 +103,17 @@ function createLink(path: string) {
     </button>
     <ul class="mt-8 space-y-4">
       <li>
-        <a href="/" class="block py-2 hover:bg-gray-100">Home</a>
+        <a href={createLink("/")} class="block py-2 hover:bg-gray-100">Home</a>
       </li>
       <li>
-        <a href="/projects" class="block py-2 hover:bg-gray-100">Projects</a>
+        <a href={createLink("/projects")} class="block py-2 hover:bg-gray-100"
+          >Projects</a
+        >
       </li>
       <li>
-        <a href="/about" class="block py-2 hover:bg-gray-100">About</a>
+        <a href={createLink("/about")} class="block py-2 hover:bg-gray-100"
+          >About</a
+        >
       </li>
     </ul>
   </div>
