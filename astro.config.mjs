@@ -6,5 +6,5 @@ import tailwind from "@astrojs/tailwind";
 export default defineConfig({
   integrations: [tailwind()],
   site: 'https://salvadorantonio.com',
-  base: '/' // Changed from '/portfolio-1' to '/'
+  base: '/' 
 });

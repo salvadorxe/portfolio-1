@@ -1,5 +1,5 @@
 ---
-const currentPath = Astro.url.pathname;
+const currentPath = new URL(Astro.request.url).pathname;
 import { Image } from "astro:assets";
 import logo from "../content/projects/images/logo.png";
 
@@ -42,7 +42,7 @@ import logo from "../content/projects/images/logo.png";
           href="/projects"
           class:list={[
             "nav-link font-regular px-8 py-4 rounded-full border border-black border-opacity-15 hover:bg-black hover:bg-opacity-5 transition-colors",
-            { active: currentPath === "/projects" },
+            { active: currentPath.startsWith("/projects") },
           ]}
         >
           Projects
@@ -53,7 +53,7 @@ import logo from "../content/projects/images/logo.png";
           href="/about"
           class:list={[
             "nav-link font-regular px-8 py-4 rounded-full border border-black border-opacity-15 hover:bg-black hover:bg-opacity-5 transition-colors",
-            { active: currentPath === "/about" },
+            { active: currentPath.startsWith("/about") },
           ]}
         >
           About
