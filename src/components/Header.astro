@@ -3,23 +3,23 @@ const currentPath = Astro.url.pathname;
 import { Image } from "astro:assets";
 import logo from "../content/projects/images/logo.png";
 
-const basePath = "/portfolio-1";
-function createLink(path: string) {
-  return `${basePath}${path}`;
-}
-function isActive(path: string) {
-  if (path === "/") {
-    return currentPath === basePath || currentPath === `${basePath}/`;
-  }
-  return currentPath.startsWith(`${basePath}${path}`);
-}
+// const basePath = "/portfolio-1";
+// function createLink(path: string) {
+//   return `${basePath}${path}`;
+// }
+// function isActive(path: string) {
+//   if (path === "/") {
+//     return currentPath === basePath || currentPath === `${basePath}/`;
+//   }
+//   return currentPath.startsWith(`${basePath}${path}`);
+// }
 ---
 
 <header
   class="h-16 flex justify-between items-center px-16 py-12 max-md:px-5 max-md:py-10 max-w-7xl w-full mx-auto"
 >
   <!-- Logo for small screens -->
-  <a href={createLink("/")} class="block md:hidden">
+  <a href="/" class="block md:hidden">
     <Image src={logo} alt="Logo" class="w-8 h-8" />
   </a>
 
@@ -28,10 +28,10 @@ function isActive(path: string) {
     <ul class="hidden md:flex gap-x-4">
       <li>
         <a
-          href={createLink("/")}
+          href="/"
           class:list={[
             "nav-link font-regular px-8 py-4 rounded-full border border-black border-opacity-15 hover:bg-black hover:bg-opacity-5 transition-colors",
-            { active: isActive("/") },
+            { active: currentPath === "/" },
           ]}
         >
           Home
@@ -39,10 +39,10 @@ function isActive(path: string) {
       </li>
       <li>
         <a
-          href={createLink("/projects")}
+          href="/projects"
           class:list={[
             "nav-link font-regular px-8 py-4 rounded-full border border-black border-opacity-15 hover:bg-black hover:bg-opacity-5 transition-colors",
-            { active: isActive("/projects") },
+            { active: currentPath === "/projects" },
           ]}
         >
           Projects
@@ -50,10 +50,10 @@ function isActive(path: string) {
       </li>
       <li>
         <a
-          href={createLink("/about")}
+          href="/about"
           class:list={[
             "nav-link font-regular px-8 py-4 rounded-full border border-black border-opacity-15 hover:bg-black hover:bg-opacity-5 transition-colors",
-            { active: isActive("/about") },
+            { active: currentPath === "/about" },
           ]}
         >
           About
@@ -103,17 +103,13 @@ function isActive(path: string) {
     </button>
     <ul class="mt-8 space-y-4">
       <li>
-        <a href={createLink("/")} class="block py-2 hover:bg-gray-100">Home</a>
+        <a href="/" class="block py-2 hover:bg-gray-100">Home</a>
       </li>
       <li>
-        <a href={createLink("/projects")} class="block py-2 hover:bg-gray-100"
-          >Projects</a
-        >
+        <a href="/projects" class="block py-2 hover:bg-gray-100">Projects</a>
       </li>
       <li>
-        <a href={createLink("/about")} class="block py-2 hover:bg-gray-100"
-          >About</a
-        >
+        <a href="/about" class="block py-2 hover:bg-gray-100">About</a>
       </li>
     </ul>
   </div>
