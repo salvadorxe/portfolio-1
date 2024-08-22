@@ -2,17 +2,6 @@
 const currentPath = new URL(Astro.request.url).pathname;
 import { Image } from "astro:assets";
 import logo from "../content/projects/images/logo.png";
-
-// const basePath = "/portfolio-1";
-// function createLink(path: string) {
-//   return `${basePath}${path}`;
-// }
-// function isActive(path: string) {
-//   if (path === "/") {
-//     return currentPath === basePath || currentPath === `${basePath}/`;
-//   }
-//   return currentPath.startsWith(`${basePath}${path}`);
-// }
 ---
 
 <header
