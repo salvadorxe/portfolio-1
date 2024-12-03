@@ -268,7 +268,15 @@ interface ResearchStep {
       <div class="py-8">
         {
           project.slug === "network-tree" && (
-            <video src={video} autoplay loop muted />
+            <video
+              src={video}
+              autoplay
+              loop
+              muted
+              playsinline
+              class="w-full max-w-full pointer-events-none"
+              disableRemotePlayback
+            />
           )
         }
       </div>
