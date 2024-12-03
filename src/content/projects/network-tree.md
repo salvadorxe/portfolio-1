@@ -1,5 +1,6 @@
 ---
 title: Network Tree
+emoji: 👥
 image: ./images/show.jpg
 timeline: 6 months
 roles: 

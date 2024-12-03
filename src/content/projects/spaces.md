@@ -1,5 +1,6 @@
 ---
 title: Spaces
+emoji: 🔮
 image: ./images/spaces.png
 timeline: 3 weeks
 roles:

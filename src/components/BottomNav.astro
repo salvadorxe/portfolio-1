@@ -1,0 +1,33 @@
+---
+interface Props {
+  projUrl: string;
+  projTitle: string;
+  emoji: string;
+}
+
+const { projUrl, projTitle, emoji } = Astro.props;
+---
+
+<div class="fixed bottom-0 left-0 right-0 p-4 flex justify-center">
+  <a
+    href={projUrl}
+    class="group inline-flex items-center px-6 py-3 bg-white text-primary-foreground rounded-full text-sm font-medium transition-transform hover:scale-[1.025] border border-black/8 focus:outline-none"
+  >
+    <span class="mr-2">Next: {emoji} {projTitle}</span>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="w-4 h-4"
+    >
+      <path d="M5 12h14"></path>
+      <path d="m12 5 7 7-7 7"></path>
+    </svg>
+  </a>
+</div>

@@ -6,27 +6,44 @@ import Layout from "../../layouts/Layout.astro";
 import ContextInquiry from "../../components/ContextInquiry.astro";
 import { Image } from "astro:assets";
 import type { ImageMetadata } from "astro";
+import video from "../../content/projects/videos/nt-groups-vid.mp4";
+import BottomNav from "../../components/BottomNav.astro";
 
 export const getStaticPaths = async () => {
   const projects = await getCollection("projects");
-  const paths = projects.map((project: { slug: any }) => {
+
+  // Sort projects first
+  const sortedProjects = projects.sort((a, b) => {
+    return a.data.order - b.data.order;
+  });
+
+  // Then map over sorted projects once
+  const paths = sortedProjects.map((project, index) => {
+    const nextProject =
+      index < sortedProjects.length - 1
+        ? sortedProjects[index + 1]
+        : sortedProjects[0];
+
     return {
       params: {
         slug: project.slug,
       },
       props: {
         project,
+        nextProject,
       },
     };
   });
+
   return paths;
 };
 
 type Props = {
   project: CollectionEntry<"projects">;
+  nextProject: CollectionEntry<"projects">;
 };
 
-const { project } = Astro.props;
+const { project, nextProject } = Astro.props;
 const { Content } = await project.render();
 const { contextInquiry, storyboard, design, research, showcase, conclusion } =
   project.data;
@@ -248,6 +265,13 @@ interface ResearchStep {
           )
         }
       </div>
+      <div class="py-8">
+        {
+          project.slug === "network-tree" && (
+            <video src={video} autoplay loop muted />
+          )
+        }
+      </div>
       <!-- 5/5 conclusion -->
       <div class="w-full bg-gray-100 px-8 py-8 rounded-2xl">
         <h3 class="text-base text-zinc-400 leading-tight mb-4 font-semibold">
@@ -279,6 +303,11 @@ interface ResearchStep {
           }
         </div>
       </div>
+      <BottomNav
+        projUrl={`/projects/${nextProject.slug}`}
+        projTitle={nextProject.data.title}
+        emoji={nextProject.data.emoji}
+      />
     </section>
   </Main>
 </Layout>
