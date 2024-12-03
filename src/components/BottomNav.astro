@@ -8,7 +8,10 @@ interface Props {
 const { projUrl, projTitle, emoji } = Astro.props;
 ---
 
-<div class="fixed bottom-0 left-0 right-0 p-4 flex justify-center">
+<div
+  id="bottom-nav"
+  class="fixed bottom-0 left-0 right-0 p-4 flex justify-center md:translate-y-0 translate-y-full transition-transform duration-300"
+>
   <a
     href={projUrl}
     class="group inline-flex items-center px-6 py-3 bg-white text-primary-foreground rounded-full text-sm font-medium transition-transform hover:scale-[1.025] border border-black/8 focus:outline-none"
@@ -31,3 +34,43 @@ const { projUrl, projTitle, emoji } = Astro.props;
     </svg>
   </a>
 </div>
+
+<script>
+  // Function to initialize the scroll behavior
+  function initScrollBehavior() {
+    const nav = document.getElementById("bottom-nav");
+
+    function checkScroll() {
+      if (!nav || window.innerWidth >= 768) return; // Don't run on md breakpoint and above
+
+      const scrollPosition = window.scrollY + window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+
+      // Show nav when within 100px of bottom
+      if (documentHeight - scrollPosition < 100) {
+        nav.classList.remove("translate-y-full");
+      } else {
+        nav.classList.add("translate-y-full");
+      }
+    }
+
+    window.addEventListener("scroll", checkScroll);
+    window.addEventListener("resize", checkScroll);
+    // Check initial position
+    checkScroll();
+
+    // Clean up function to remove event listeners
+    return () => {
+      window.removeEventListener("scroll", checkScroll);
+      window.removeEventListener("resize", checkScroll);
+    };
+  }
+
+  // Initialize on page load
+  document.addEventListener("astro:page-load", () => {
+    const cleanup = initScrollBehavior();
+
+    // Clean up on page unload
+    document.addEventListener("astro:before-swap", cleanup);
+  });
+</script>
