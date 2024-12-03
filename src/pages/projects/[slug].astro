@@ -13,12 +13,14 @@ export const getStaticPaths = async () => {
   const projects = await getCollection("projects");
 
   // Sort projects first
-  const sortedProjects = projects.sort((a, b) => {
-    return a.data.order - b.data.order;
-  });
+  const sortedProjects = projects.sort(
+    (a: { data: { order: number } }, b: { data: { order: number } }) => {
+      return a.data.order - b.data.order;
+    }
+  );
 
   // Then map over sorted projects once
-  const paths = sortedProjects.map((project, index) => {
+  const paths = sortedProjects.map((project: { slug: any }, index: number) => {
     const nextProject =
       index < sortedProjects.length - 1
         ? sortedProjects[index + 1]

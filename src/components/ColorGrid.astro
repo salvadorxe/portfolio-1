@@ -1,5 +1,5 @@
 ---
-
+// Add any imports here if needed
 ---
 
 <div class="w-80 h-80 p-2 bg-white rounded-lg">
@@ -8,7 +8,6 @@
 </div>
 
 <style>
-  /* Safeguard for mobile device */
   @media (hover: none) {
     .mobile-disable {
       pointer-events: none;
@@ -22,15 +21,17 @@
 </style>
 
 <script>
-  document.addEventListener("astro:page-load", () => {
+  // Define types outside the event listener
+  type CellData = {
+    timestamp: number;
+    color: string;
+  };
+
+  function initializeGrid() {
     const grid = Array.from({ length: 25 }, (_, i) => i);
     const activeCells = new Map();
     let currentCell: number | null = null;
-
-    type CellData = {
-      timestamp: number;
-      color: string;
-    };
+    let animationFrameId: number | null = null;
 
     const colors = [
       "#8B0000", // Dark red
@@ -44,28 +45,12 @@
     ];
 
     const interactiveGrid = document.getElementById("interactive-grid");
-    // Early return with type assertion
     if (!interactiveGrid) {
       console.warn("Interactive grid not found");
       return;
     }
 
-    // Now TypeScript knows interactiveGrid is not null
     interactiveGrid.innerHTML = "";
-
-    grid.forEach((index) => {
-      const cell = document.createElement("div") as HTMLDivElement;
-      cell.dataset.index = index.toString();
-      cell.className =
-        "aspect-square transition-all duration-200 ease-out cursor-crosshair";
-      cell.style.backgroundColor = "#ffffff";
-      cell.style.transform = "scale(1)";
-      cell.addEventListener("mouseenter", () => handleMouseEnter(index));
-      cell.addEventListener("mouseleave", () => handleMouseLeave(index));
-      interactiveGrid.appendChild(cell);
-    });
-
-    let animationFrameId: number | null = null;
 
     function handleMouseEnter(index: number): void {
       const now = Date.now();
@@ -76,7 +61,6 @@
         color: colors[Math.floor(Math.random() * colors.length)],
       } satisfies CellData);
 
-      //active cell
       const cell = interactiveGrid?.querySelector(
         `[data-index="${index}"]`
       ) as HTMLDivElement;
@@ -110,6 +94,28 @@
       }
     }
 
+    function hexToRgb(hex: string): { r: number; g: number; b: number } | null {
+      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result
+        ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16),
+          }
+        : null;
+    }
+
+    function interpolateColors(
+      color1: number[],
+      color2: number[],
+      factor: number
+    ): number[] {
+      return color1.map((start, i) => {
+        const end = color2[i];
+        return Math.round(start + (end - start) * factor);
+      });
+    }
+
     function updateCellColors(): void {
       const now = Date.now();
 
@@ -118,13 +124,11 @@
       }
 
       grid.forEach((index) => {
-        // Ensure the element exists
         const cellData = activeCells.get(index) as CellData | undefined;
         const cell = interactiveGrid.querySelector(
           `[data-index="${index}"]`
         ) as HTMLDivElement | null;
 
-        // Safeguard for null cells
         if (!cell) return;
 
         if (cellData) {
@@ -151,35 +155,32 @@
       }
     }
 
-    function hexToRgb(hex: string): { r: number; g: number; b: number } | null {
-      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-      return result
-        ? {
-            r: parseInt(result[1], 16),
-            g: parseInt(result[2], 16),
-            b: parseInt(result[3], 16),
-          }
-        : null;
-    }
-
-    function interpolateColors(
-      color1: number[],
-      color2: number[],
-      factor: number
-    ): number[] {
-      return color1.map((start, i) => {
-        const end = color2[i];
-        return Math.round(start + (end - start) * factor);
-      });
-    }
+    grid.forEach((index) => {
+      const cell = document.createElement("div") as HTMLDivElement;
+      cell.dataset.index = index.toString();
+      cell.className =
+        "aspect-square transition-all duration-200 ease-out cursor-crosshair";
+      cell.style.backgroundColor = "#ffffff";
+      cell.style.transform = "scale(1)";
+      cell.addEventListener("mouseenter", () => handleMouseEnter(index));
+      cell.addEventListener("mouseleave", () => handleMouseLeave(index));
+      interactiveGrid.appendChild(cell);
+    });
 
     updateCellColors();
-  });
+  }
 
-  document.addEventListener("astro:before-preparation", () => {
+  // Clean up function
+  function cleanup() {
     const interactiveGrid = document.getElementById("interactive-grid");
     if (interactiveGrid) {
       interactiveGrid.innerHTML = "";
     }
-  });
+  }
+
+  // Initialize on page load
+  document.addEventListener("astro:page-load", initializeGrid);
+
+  // Cleanup on navigation
+  document.addEventListener("astro:before-preparation", cleanup);
 </script>
