@@ -39,7 +39,7 @@ research:
       images:
         - ./images/user2.png
     - quote: "Can a contact belong to more than one group? I would want a flexible way to import specific contacts or add entirely new ones"
-      designChange: Improve flow of contact import and creation. Show associations to groups more clearly.
+      designChange: Improve flow of contact import and manual creation. Make function of grouping more apparent in design.
       images:
         - ./images/user3.png
 showcase:
