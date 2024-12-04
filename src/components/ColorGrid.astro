@@ -7,21 +7,8 @@
   </div>
 </div>
 
-<style>
-  @media (hover: none) {
-    .mobile-disable {
-      pointer-events: none;
-    }
-  }
-  @media (max-width: 768px) {
-    .mobile-disable {
-      pointer-events: none;
-    }
-  }
-</style>
-
 <script>
-  // Define types outside the event listener
+  // Define types
   type CellData = {
     timestamp: number;
     color: string;
@@ -32,6 +19,8 @@
     const activeCells = new Map();
     let currentCell: number | null = null;
     let animationFrameId: number | null = null;
+    let isMobileAnimation = false;
+    let mobileAnimationIndex = 0;
 
     const colors = [
       "#8B0000", // Dark red
@@ -39,10 +28,13 @@
       "#D35656", // Light red
       "#8B4513", // Saddle brown
       "#A0522D", // Sienna
-      "#DEB887", // Burlywood (light brown)
-      "#CD853F", // Peru (warm brown)
+      "#DEB887", // Burlywood
+      "#CD853F", // Peru
       "#DAA520", // Goldenrod
     ];
+
+    // Mobile detection
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
     const interactiveGrid = document.getElementById("interactive-grid");
     if (!interactiveGrid) {
@@ -52,7 +44,47 @@
 
     interactiveGrid.innerHTML = "";
 
-    function handleMouseEnter(index: number): void {
+    // Mobile animation patterns
+    const patterns = {
+      wave: () => {
+        const pattern = [
+          0, 1, 2, 3, 4, 9, 8, 7, 6, 5, 10, 11, 12, 13, 14, 19, 18, 17, 16, 15,
+          20, 21, 22, 23, 24,
+        ];
+        return pattern[mobileAnimationIndex % pattern.length];
+      },
+    };
+
+    function startMobileAnimation() {
+      if (!isMobileAnimation) {
+        isMobileAnimation = true;
+        runMobileAnimation();
+      }
+    }
+
+    function runMobileAnimation() {
+      if (!isMobileAnimation) return;
+
+      // Get next cell index from pattern
+      const nextIndex = patterns.wave();
+      handleMouseEnter(nextIndex, true);
+      mobileAnimationIndex++;
+
+      // Continue animation
+      setTimeout(() => {
+        if (isMobileAnimation) {
+          runMobileAnimation();
+        }
+      }, 150); // Adjust timing for smoother animation
+    }
+
+    function handleMouseEnter(
+      index: number,
+      isMobileAnim: boolean = false
+    ): void {
+      // Skip if mobile animation is running and this is a real mouse event
+      if (isMobileAnimation && !isMobileAnim) return;
+
       const now = Date.now();
       currentCell = index;
 
@@ -82,6 +114,9 @@
     }
 
     function handleMouseLeave(index: number): void {
+      // Skip if mobile animation is running
+      if (isMobileAnimation) return;
+
       if (currentCell === index) {
         currentCell = null;
         const cell = interactiveGrid?.querySelector(
@@ -162,12 +197,22 @@
         "aspect-square transition-all duration-200 ease-out cursor-crosshair";
       cell.style.backgroundColor = "#ffffff";
       cell.style.transform = "scale(1)";
-      cell.addEventListener("mouseenter", () => handleMouseEnter(index));
-      cell.addEventListener("mouseleave", () => handleMouseLeave(index));
+
+      // Only add mouse events for non-mobile
+      if (!isMobile) {
+        cell.addEventListener("mouseenter", () => handleMouseEnter(index));
+        cell.addEventListener("mouseleave", () => handleMouseLeave(index));
+      }
+
       interactiveGrid.appendChild(cell);
     });
 
     updateCellColors();
+
+    // Start mobile animation if on mobile
+    if (isMobile) {
+      startMobileAnimation();
+    }
   }
 
   // Clean up function
