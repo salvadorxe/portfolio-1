@@ -8,6 +8,8 @@ import { Image } from "astro:assets";
 import type { ImageMetadata } from "astro";
 import video from "../../content/projects/videos/nt-groups-vid.mp4";
 import BottomNav from "../../components/BottomNav.astro";
+import ContactFooter from "../../components/ContactFooter.astro";
+import Divider from "../../components/Divider.astro";
 
 export const getStaticPaths = async () => {
   const projects = await getCollection("projects");
@@ -313,6 +315,8 @@ interface ResearchStep {
           }
         </div>
       </div>
+      <Divider />
+      <ContactFooter />
       <BottomNav
         projUrl={`/projects/${nextProject.slug}`}
         projTitle={nextProject.data.title}
